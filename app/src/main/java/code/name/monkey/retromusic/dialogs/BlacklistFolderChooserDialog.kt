@@ -50,6 +50,7 @@ class BlacklistFolderChooserDialog : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         var mSavedInstanceState = savedInstanceState
+        /*
         if (VersionUtils.hasMarshmallow()
             && ActivityCompat.checkSelfPermission(
                 requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE
@@ -62,6 +63,7 @@ class BlacklistFolderChooserDialog : DialogFragment() {
                 positiveButton(res = android.R.string.ok)
             }
         }
+         */
         if (mSavedInstanceState == null) {
             mSavedInstanceState = Bundle()
         }
