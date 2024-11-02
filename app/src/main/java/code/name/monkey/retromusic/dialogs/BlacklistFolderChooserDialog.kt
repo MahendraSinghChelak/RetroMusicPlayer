@@ -48,14 +48,21 @@ class BlacklistFolderChooserDialog : DialogFragment() {
         return null
     }
 
+    fun isPermissionGranted(): Boolean {
+        if(VersionUtils.hasT()){
+            return VersionUtils.hasMarshmallow() && ActivityCompat.checkSelfPermission(
+                requireActivity(), Manifest.permission.READ_MEDIA_AUDIO
+            ) != PackageManager.PERMISSION_GRANTED;
+        }else{
+            return VersionUtils.hasMarshmallow() && ActivityCompat.checkSelfPermission(
+                requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED;
+        }
+    }
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         var mSavedInstanceState = savedInstanceState
-        if (VersionUtils.hasMarshmallow()
-            && ActivityCompat.checkSelfPermission(
-                requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE
-            )
-            != PackageManager.PERMISSION_GRANTED
-        ) {
+        if (isPermissionGranted()) {
             return materialDialog().show {
                 title(res = R.string.md_error_label)
                 message(res = R.string.md_storage_perm_error)
